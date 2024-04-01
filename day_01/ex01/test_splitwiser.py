@@ -13,7 +13,11 @@ import splitwiser
 def _assert_diff_on_booty_split(
     booty: tuple[purse.PurseType, purse.PurseType, purse.PurseType]
 ) -> None:
-    assert True
+    i1, i2, i3 = [p["gold_ingots"] for p in booty]
+
+    assert abs(i1 - i2) <= 1
+    assert abs(i1 - i3) <= 1
+    assert abs(i2 - i3) <= 1
 
 
 class TestSplitBooty(unittest.TestCase):
