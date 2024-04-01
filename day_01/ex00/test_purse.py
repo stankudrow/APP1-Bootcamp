@@ -39,6 +39,13 @@ class TestPurse(unittest.TestCase):
 
         self.assertEqual(result, {purse.PurseFields.GI: 1})
 
+    def test_purse_get_attribute(self):
+        purse_ = purse.add_ingot(purse.empty())
+        key_ = purse.PurseFields.GI.value
+
+        self.assertEqual(key_, "gold_ingots")
+        self.assertEqual(purse_[key_], 1)
+
 
 if __name__ == "__main__":
     unittest.main()

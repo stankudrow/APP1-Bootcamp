@@ -45,7 +45,7 @@ def add_ingot(purse: PurseType) -> PurseType:
     """
 
     ingots = purse.get(PurseFields.GI, 0)
-    return {PurseFields.GI: ingots + 1}
+    return {PurseFields.GI.value: ingots + 1}
 
 
 def get_ingot(purse: PurseType) -> PurseType:
@@ -66,4 +66,4 @@ def get_ingot(purse: PurseType) -> PurseType:
     ingots = purse.get(PurseFields.GI, 0)
     if not ingots:
         raise ValueError("cannot get more from an already empty purse")
-    return {PurseFields.GI: ingots - 1}
+    return {PurseFields.GI.value: ingots - 1}
