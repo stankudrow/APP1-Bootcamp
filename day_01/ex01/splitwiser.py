@@ -2,7 +2,7 @@ import purse
 
 
 def split_booty(
-    *purses: purse.PurseType
+    *purses: purse.PurseType,
 ) -> tuple[purse.PurseType, purse.PurseType, purse.PurseType]:
     """Returns the tuple of three purses with the booty split.
 
