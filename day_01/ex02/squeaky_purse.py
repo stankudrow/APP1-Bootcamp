@@ -1,0 +1,81 @@
+from functools import wraps
+from typing import Callable
+
+
+PurseType = dict[str, int]
+
+
+INGOTS = "gold_ingots"
+
+
+def make_squeak(func: Callable) -> Callable:
+    @wraps(func)
+    def _wrapper(*args):
+        print("SQUEAK")
+        return func(*args)
+
+    return _wrapper
+
+
+@make_squeak
+def empty() -> PurseType:
+    """Returns the empty purse (dict).
+
+    Notes
+    -----
+    The task suggests the `empty(purse)` signature.
+    However, passing the parametre is pointless,
+    because the function must return an empty purse.
+    So the incoming parametre does not take part in
+    returning a new instance of the Purse type.
+    Also, it might be better to return a `{INGOTS: 0}`.
+    However, technically it will not be an empty purse/dict.
+    Returning an empty purse as an empty dictionary has benefits:
+    the functions `add/get_ingots` should not make any assumptions
+    on the structure of an empty purse, so it can be either `{}`
+    or `{INGOTS: 0}` and both are good to be processed correctly.
+
+    Returns
+    -------
+    PurseType: an empty purse
+    """
+
+    return {}
+
+
+@make_squeak
+def add_ingot(purse: PurseType) -> PurseType:
+    """Returns a new purse with the incremented number of ingots.
+
+    A new instance of the PurseType is returned.
+    Such behaviour ensures the functional purity.
+
+    Returns
+    -------
+    PurseType: a new instance of PurseType
+    """
+
+    ingots = purse.get(INGOTS, 0)
+    return {INGOTS: ingots + 1}
+
+
+@make_squeak
+def get_ingot(purse: PurseType) -> PurseType:
+    """Returns a new purse with the decremented number of ingots.
+
+    A new instance of the PurseType is returned.
+    Such behaviour ensures the functional purity.
+
+    Raises
+    ------
+    ValueError: getting an ingot from an empty purse
+
+    Returns
+    -------
+    PurseType: a new instance of PurseType
+    """
+
+    ingots = purse.get(INGOTS, 0)
+    if not ingots:
+        raise ValueError("cannot get more from an already empty purse")
+    return {INGOTS: ingots - 1}
