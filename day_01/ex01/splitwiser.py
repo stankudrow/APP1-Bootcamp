@@ -17,12 +17,12 @@ def split_booty(
 
     total_ingots: int = 0
     for purse_ in purses:
-        total_ingots += purse_.get(purse.INGOTS, 0)
+        total_ingots += purse_.get(purse.PurseFields.GI, 0)
 
     purses_split = []
     for divisor in range(3, 0, -1):
         part = total_ingots // divisor
-        purses_split.append({purse.INGOTS: part})
+        purses_split.append({purse.PurseFields.GI.value: part})
         total_ingots -= part
 
     return (

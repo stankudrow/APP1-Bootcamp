@@ -16,7 +16,7 @@ class TestPurse(unittest.TestCase):
     def test_add_ingot_to_an_empty_purse(self):
         purse_ = purse.empty()
         added = purse.add_ingot(purse_)
-        answer = {purse.INGOTS: 1}
+        answer = {purse.PurseFields.GI: 1}
 
         self.assertEqual(purse_, {})
         self.assertEqual(added, answer)
@@ -27,8 +27,8 @@ class TestPurse(unittest.TestCase):
 
         result = purse.add_ingot(purse_)
 
-        self.assertEqual(purse_, {purse.INGOTS: 1})
-        self.assertEqual(result, {purse.INGOTS: 2})
+        self.assertEqual(purse_, {purse.PurseFields.GI: 1})
+        self.assertEqual(result, {purse.PurseFields.GI: 2})
 
     def test_get_ingot_from_an_empty_purse(self):
         with self.assertRaises(ValueError):
@@ -37,11 +37,11 @@ class TestPurse(unittest.TestCase):
     def test_add_get_add_empty_chain(self):
         result = purse.add_ingot(purse.get_ingot(purse.add_ingot(purse.empty())))
 
-        self.assertEqual(result, {purse.INGOTS: 1})
+        self.assertEqual(result, {purse.PurseFields.GI: 1})
 
     def test_purse_get_attribute(self):
         purse_ = purse.add_ingot(purse.empty())
-        key_ = purse.INGOTS
+        key_ = purse.PurseFields.GI.value
 
         self.assertEqual(key_, "gold_ingots")
         self.assertEqual(purse_[key_], 1)

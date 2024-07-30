@@ -25,9 +25,9 @@ class TestSplitBooty(unittest.TestCase):
     def test_on_empty_purses(self):
         purses = [{}, {}, {}]
         answer = (
-            {purse.INGOTS: 0},
-            {purse.INGOTS: 0},
-            {purse.INGOTS: 0},
+            {purse.PurseFields.GI: 0},
+            {purse.PurseFields.GI: 0},
+            {purse.PurseFields.GI: 0},
         )
 
         result = splitwiser.split_booty(*purses)
@@ -37,9 +37,9 @@ class TestSplitBooty(unittest.TestCase):
 
     def test_on_equal_purses(self):
         purses = [
-            {purse.INGOTS: 1},
-            {purse.INGOTS: 1},
-            {purse.INGOTS: 1},
+            {purse.PurseFields.GI: 1},
+            {purse.PurseFields.GI: 1},
+            {purse.PurseFields.GI: 1},
         ]
         answer = tuple(deepcopy(purses))
 
@@ -50,14 +50,14 @@ class TestSplitBooty(unittest.TestCase):
 
     def test_on_123_ingots_purses(self):
         purses = [
-            {purse.INGOTS: 1},
-            {purse.INGOTS: 2},
-            {purse.INGOTS: 3},
+            {purse.PurseFields.GI: 1},
+            {purse.PurseFields.GI: 2},
+            {purse.PurseFields.GI: 3},
         ]
         answer = (
-            {purse.INGOTS: 2},
-            {purse.INGOTS: 2},
-            {purse.INGOTS: 2},
+            {purse.PurseFields.GI: 2},
+            {purse.PurseFields.GI: 2},
+            {purse.PurseFields.GI: 2},
         )
 
         result = splitwiser.split_booty(*purses)
@@ -67,18 +67,20 @@ class TestSplitBooty(unittest.TestCase):
 
     def test_on_apples_ingots_purses(self):
         purses = [
-            {purse.INGOTS: 3},
-            {purse.INGOTS: 2},
+            {purse.PurseFields.GI: 3},
+            {purse.PurseFields.GI: 2},
             {"apples": 10},
         ]
         answer = (
-            {purse.INGOTS: 2},
-            {purse.INGOTS: 2},
-            {purse.INGOTS: 1},
+            {purse.PurseFields.GI: 2},
+            {purse.PurseFields.GI: 2},
+            {purse.PurseFields.GI: 1},
         )
 
         result = splitwiser.split_booty(*purses)
-        result = tuple(sorted(result, key=lambda p: p[purse.INGOTS], reverse=True))
+        result = tuple(
+            sorted(result, key=lambda p: p[purse.PurseFields.GI], reverse=True)
+        )
 
         self.assertEqual(result, answer)
         _assert_diff_on_booty_split(result)

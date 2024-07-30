@@ -1,7 +1,11 @@
+from enum import Enum
+
+
 PurseType = dict[str, int]
 
 
-INGOTS = "gold_ingots"
+class PurseFields(str, Enum):
+    GI = "gold_ingots"
 
 
 def empty() -> PurseType:
@@ -14,12 +18,12 @@ def empty() -> PurseType:
     because the function must return an empty purse.
     So the incoming parametre does not take part in
     returning a new instance of the Purse type.
-    Also, it might be better to return a `{INGOTS: 0}`.
+    Also, it might be better to return a `{PurseFields.GI: 0}`.
     However, technically it will not be an empty purse/dict.
     Returning an empty purse as an empty dictionary has benefits:
     the functions `add/get_ingots` should not make any assumptions
     on the structure of an empty purse, so it can be either `{}`
-    or `{INGOTS: 0}` and both are good to be processed correctly.
+    or `{PurseFields.GI: 0}` and both are good to be processed correctly.
 
     Returns
     -------
@@ -40,8 +44,8 @@ def add_ingot(purse: PurseType) -> PurseType:
     PurseType: a new instance of PurseType
     """
 
-    ingots = purse.get(INGOTS, 0)
-    return {INGOTS: ingots + 1}
+    ingots = purse.get(PurseFields.GI, 0)
+    return {PurseFields.GI.value: ingots + 1}
 
 
 def get_ingot(purse: PurseType) -> PurseType:
@@ -59,7 +63,7 @@ def get_ingot(purse: PurseType) -> PurseType:
     PurseType: a new instance of PurseType
     """
 
-    ingots = purse.get(INGOTS, 0)
+    ingots = purse.get(PurseFields.GI, 0)
     if not ingots:
         raise ValueError("cannot get more from an already empty purse")
-    return {INGOTS: ingots - 1}
+    return {PurseFields.GI.value: ingots - 1}
