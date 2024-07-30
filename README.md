@@ -8,3 +8,4 @@ A bootcamp in the School 21 is what a piscine is in the School 42.
 
 - [day_00](./day_00/)
 - [day_01](./day_01/)
+- [day_02](./day_02/)
